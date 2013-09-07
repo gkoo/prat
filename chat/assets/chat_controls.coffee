@@ -145,8 +145,8 @@ class window.ChatControls
     MessageHub.sendPreview(message, CurrentChannel)
 
   @onChatSubmit: (event) =>
-    message = @chatText.val()
-    if message.replace(/\s*$/, "") isnt ""
+    message = @preprocessMessage(@chatText.val())
+    if message isnt ""
       MessageHub.sendChat(message, CurrentChannel)
       @addToChatHistory(message)
     @chatText.val("").focus()
@@ -221,3 +221,10 @@ class window.ChatControls
   @appendUserName: (username) =>
     currentMessage = @chatText.val().trim()
     @chatText.focus().val((currentMessage + " @" + username).trim())
+
+  @preprocessMessage: (msg) ->
+    imgRegEx = /^https?:\/\/.*\.(jpg|gif|png)$/
+    msg = msg.replace(/\s*$/, "")
+    if msg.match(imgRegEx)
+      return "![](#{msg})"
+    return msg
