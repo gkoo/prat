@@ -316,7 +316,9 @@ button, select
     // strange bug where the input box hangs before deleting the first character. See
     // https://github.com/bkad/prat/issues/70.
     // TODO(caleb): Figure out the real root cause, remove this hack.
-    opacity: 0
+    // gkoo: since according to the issue on Github this only affects Chrome on Linux, I'm changing this
+    // back to display:none since most of our users are on OS X and this hack makes the scrollbar unusable
+    display: none
     pointer-events: none
   absolute: top 30px left
   bottom: 81px
