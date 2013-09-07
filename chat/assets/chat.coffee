@@ -105,9 +105,14 @@ class window.MessagesViewCollection extends Backbone.View
       success: (messageHash) =>
         for channel, messages of messageHash
           @appendMessages(messages, quiet: true)
-        setTimeout(->
+
+        if (document.readyState == 'complete')
           Util.scrollToBottom(animate: false)
-        , 200)
+        else
+          document.onreadystatechange = ->
+            if (document.readyState == 'complete')
+              Util.scrollToBottom(animate: true)
+
         spinner.stop()
         $("#spin-overlay").fadeOut(200)
         $("#chat-text").focus()
