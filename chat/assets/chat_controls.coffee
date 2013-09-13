@@ -225,7 +225,7 @@ class window.ChatControls
     @chatText.focus().val((currentMessage + " @" + username).trim())
 
   @preprocessMessage: (msg) ->
-    imgRegEx = /https?:\/\/.*\.(jpg|gif|png)/i
+    imgRegEx = /^https?:\/\/.*\.(jpg|gif|png)$/i
     msg = msg.replace(/\s*$/, "")
     match = msg.match(imgRegEx)
 
